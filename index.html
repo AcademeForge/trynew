@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>AcademeForge App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="academe-app.css" />
+</head>
+<body>
+  <!-- =========================================================
+       SPLASH
+  ========================================================== -->
+  <div id="splashScreen" class="splash-screen" aria-hidden="true">
+    <div class="splash-logo">AF</div>
+    <h1>AcademeForge</h1>
+    <p>Learning Beyond The Classroom</p>
+  </div>
+
+  <main class="app-shell">
+    <!-- =========================================================
+         TOP BAR
+    ========================================================== -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-logo">AF</div>
+        <div class="brand-copy">
+          <h1>AcademeForge</h1>
+          <p>Learning Beyond the Classroom</p>
+        </div>
+      </div>
+
+      <button class="streak-pill" type="button" data-section-link="learningHeatmap" aria-label="Open learning heatmap">
+        <span aria-hidden="true">🔥</span>
+        <strong id="headerStreak">0</strong>
+      </button>
+
+      <button class="icon-btn" type="button" data-section-link="notifications" aria-label="Open notifications">
+        <span aria-hidden="true">🔔</span>
+        <span id="notificationDot" class="dot hidden"></span>
+      </button>
+    </header>
+
+    <!-- =========================================================
+         HOME
+    ========================================================== -->
+    <section id="home" class="section active">
+      <div class="banner-slider" aria-label="AcademeForge announcements">
+        <article class="banner-slide active">
+          <span>Beta</span>
+          <h2>AF Nexus is being updated</h2>
+          <p>Courses, community, tests, and dashboards are now organized in one cleaner app.</p>
+        </article>
+        <article class="banner-slide">
+          <span>Learn</span>
+          <h2>Skill batches are open</h2>
+          <p>Explore AI, design, editing, freelancing, and prompt engineering batches.</p>
+        </article>
+        <article class="banner-slide">
+          <span>Practice</span>
+          <h2>Test Arena preview</h2>
+          <p>Attempt sample assessments and track your score locally.</p>
+        </article>
+        <div id="bannerDots" class="banner-dots"></div>
+      </div>
+
+      <div class="marquee" aria-label="Latest update">
+        <div class="marquee-track">
+          <span>🔔 This is a beta version. AF Nexus content is being updated.</span>
+          <span>🔔 This is a beta version. AF Nexus content is being updated.</span>
+        </div>
+      </div>
+
+      <div class="action-grid two">
+        <button class="action-card" type="button" data-section-link="student">
+          <span class="card-icon">🎓</span>
+          <span>
+            <strong>Student Login</strong>
+            <small>Access your course dashboard.</small>
+          </span>
+        </button>
+        <button class="action-card" type="button" id="profileCardBtn">
+          <span class="card-icon">👤</span>
+          <span>
+            <strong id="homeProfileName">Hi, Student</strong>
+            <small id="homeProfileSub">Login to view profile</small>
+          </span>
+        </button>
+      </div>
+
+      <div class="action-grid">
+        <button class="action-card wide" type="button" data-section-link="testArena">
+          <span class="card-icon">🧪</span>
+          <span>
+            <strong>AF Test Arena</strong>
+            <small>Attempt quizzes and see your score.</small>
+          </span>
+        </button>
+        <button class="action-card wide" type="button" data-section-link="about">
+          <span class="card-icon">🔥</span>
+          <span>
+            <strong>About Us</strong>
+            <small>Know the story behind AcademeForge.</small>
+          </span>
+        </button>
+      </div>
+
+      <footer class="credit">
+        <strong>Developed by Devraj Kumar</strong>
+        <span>Made with love in India.</span>
+      </footer>
+    </section>
+
+    <!-- =========================================================
+         STUDENT LOGIN / COURSE DASHBOARD
+    ========================================================== -->
+    <section id="student" class="section">
+      <button class="back-btn" type="button" data-section-link="home">← Back</button>
+
+      <div id="authCard" class="panel">
+        <div class="panel-icon">🎓</div>
+        <h2>Student ID Access</h2>
+        <p>Login or create a local Student ID to access courses, batches, and community features.</p>
+
+        <div class="segmented">
+          <button id="loginTab" class="active" type="button" data-auth-tab="login">Login</button>
+          <button id="createTab" type="button" data-auth-tab="create">Create ID</button>
+        </div>
+
+        <form id="loginForm" class="form-stack">
+          <label>
+            <span>Student ID / Phone</span>
+            <input id="loginId" type="tel" autocomplete="username" placeholder="Enter phone number" />
+          </label>
+          <label>
+            <span>Password</span>
+            <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter password" />
+          </label>
+          <button class="primary-btn" type="submit">Login</button>
+        </form>
+
+        <form id="createForm" class="form-stack hidden">
+          <label>
+            <span>Full Name</span>
+            <input id="createName" type="text" autocomplete="name" placeholder="Enter your full name" />
+          </label>
+          <label>
+            <span>Phone Number</span>
+            <input id="createPhone" type="tel" autocomplete="tel" placeholder="Enter phone number" />
+          </label>
+          <label>
+            <span>Email Address</span>
+            <input id="createEmail" type="email" autocomplete="email" placeholder="Enter email address" />
+          </label>
+          <label>
+            <span>Create Password</span>
+            <input id="createPassword" type="password" autocomplete="new-password" placeholder="Create password" />
+          </label>
+          <button class="primary-btn" type="submit">Create Student ID</button>
+        </form>
+
+        <div id="authMessage" class="message" aria-live="polite"></div>
+      </div>
+
+      <div id="courseDashboard" class="panel hidden">
+        <div class="split-head">
+          <div>
+            <h2>📚 My Courses</h2>
+            <p id="studentWelcome">Welcome Student</p>
+          </div>
+          <button class="danger-soft-btn" type="button" id="logoutBtn">Logout</button>
+        </div>
+        <div id="courseGrid" class="card-list"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         PROFILE
+    ========================================================== -->
+    <section id="profile" class="section">
+      <button class="back-btn" type="button" data-section-link="home">← Back</button>
+      <div class="profile-hero">
+        <div id="profileAvatar" class="avatar">S</div>
+        <div>
+          <h2 id="profileName">Student</h2>
+          <p>View and manage your dashboard</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="split-head">
+          <div>
+            <h3>Your Details</h3>
+            <p>Name, email and phone number</p>
+          </div>
+          <button class="small-btn" type="button" id="editNameBtn">Edit</button>
+        </div>
+        <div class="detail-list">
+          <div><span>Name</span><strong id="infoName">-</strong></div>
+          <div><span>Email</span><strong id="infoEmail">-</strong></div>
+          <div><span>Phone Number</span><strong id="infoPhone">-</strong></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Batch Enrolled In</h3>
+        <div id="profileBatchList" class="card-list compact"></div>
+      </div>
+
+      <div class="panel">
+        <button id="extraSettingsToggle" class="settings-toggle" type="button">
+          <span>⚙️</span>
+          <span><strong>Additional Setting</strong><small>Account safety and sensitive actions</small></span>
+          <b>⌄</b>
+        </button>
+        <div id="extraSettingsBody" class="hidden">
+          <button class="danger-btn full" type="button" id="deleteAccountBtn">Delete Account Request</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BATCHES
+    ========================================================== -->
+    <section id="batches" class="section">
+      <div class="section-head">
+        <div>
+          <h2>All Batches</h2>
+          <p id="batchCount">5 batches available</p>
+        </div>
+      </div>
+      <label class="search-box">
+        <span>🔍</span>
+        <input id="batchSearch" type="search" placeholder="Search for batches" />
+      </label>
+      <div id="batchGrid" class="batch-grid"></div>
+    </section>
+
+    <!-- =========================================================
+         COMMUNITY
+    ========================================================== -->
+    <section id="community" class="section">
+      <div id="communityLocked" class="panel locked-card">
+        <div class="panel-icon">🔒</div>
+        <h2>Community Locked</h2>
+        <p>Login to access AF Nexus and interact with fellow learners.</p>
+        <button class="primary-btn" type="button" data-section-link="student">Login to Continue</button>
+      </div>
+
+      <div id="communityMain" class="community-shell hidden">
+        <div class="split-head">
+          <div>
+            <h2>AF Nexus</h2>
+            <p>Connect, discuss and grow with fellow learners.</p>
+          </div>
+          <button id="myPostsBtn" class="small-btn" type="button">My Posts</button>
+        </div>
+
+        <form id="postForm" class="composer">
+          <textarea id="postInput" maxlength="500" placeholder="Write something helpful, thoughtful, or interesting..."></textarea>
+          <div>
+            <span id="postCount">0 / 80 words</span>
+            <button class="primary-btn" type="submit">Post</button>
+          </div>
+        </form>
+
+        <div class="segmented">
+          <button id="feedAllBtn" class="active" type="button" data-feed="all">All Posts</button>
+          <button id="feedMineBtn" type="button" data-feed="mine">My Posts</button>
+        </div>
+
+        <div id="postsList" class="posts-list"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         TEST ARENA
+    ========================================================== -->
+    <section id="testArena" class="section">
+      <button class="back-btn" type="button" data-section-link="home">← Back</button>
+      <div id="testLocked" class="panel locked-card">
+        <div class="panel-icon">🔒</div>
+        <h2>AcademeForge Scholars Tests</h2>
+        <p>Login to know about upcoming tests and attempt sample assessments.</p>
+        <button class="primary-btn" type="button" data-section-link="student">Login Now</button>
+      </div>
+
+      <div id="testMain" class="panel hidden">
+        <div class="test-hero">
+          <span>🧪</span>
+          <div>
+            <small>AF Nexus</small>
+            <h2>AcademeForge Scholars Test</h2>
+            <p>Answer five quick questions and get an instant local score.</p>
+          </div>
+        </div>
+        <div id="testArea"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         NOTIFICATIONS
+    ========================================================== -->
+    <section id="notifications" class="section">
+      <button class="back-btn" type="button" data-section-link="home">← Back</button>
+      <div class="panel">
+        <h2>🔔 Notifications</h2>
+        <p>Latest lectures, batch updates, notes, and announcements.</p>
+        <div id="notificationsList" class="card-list"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         ABOUT
+    ========================================================== -->
+    <section id="about" class="section">
+      <button class="back-btn" type="button" data-section-link="home">← Back</button>
+      <div class="about-hero">
+        <span>About AcademeForge</span>
+        <h2>Learning Beyond the Classroom</h2>
+        <p>AcademeForge is built as a modern learning space where students can access courses, batches, updates, community, and study tools in one simple app.</p>
+      </div>
+      <div class="info-grid">
+        <article><strong>Mission</strong><p>Make practical learning simple, organized, and accessible.</p></article>
+        <article><strong>Vision</strong><p>Build a smart learning ecosystem where students grow with confidence.</p></article>
+        <article><strong>Founder</strong><p>Devraj Kumar, Founder and Developer of AcademeForge.</p></article>
+        <article><strong>Focus</strong><p>Simple UI, fast access, practical skills, and community learning.</p></article>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SETTINGS
+    ========================================================== -->
+    <section id="settings" class="section">
+      <div class="settings-profile">
+        <div class="avatar">👨‍🎓</div>
+        <div>
+          <h2 id="settingsName">Hi, Student</h2>
+          <button class="link-btn" type="button" id="settingsProfileBtn">View profile</button>
+        </div>
+      </div>
+
+      <div class="settings-list">
+        <label class="settings-row">
+          <span>🌙 Night Mode</span>
+          <input id="themeToggle" type="checkbox" role="switch" />
+        </label>
+        <button class="settings-row" type="button" data-section-link="testArena"><span>🎓 AF Test Arena</span><b>›</b></button>
+        <button class="settings-row" type="button" data-section-link="student"><span>📋 Login/Create ID</span><b>›</b></button>
+        <button class="settings-row" type="button" id="bugReportBtn"><span>🐞 Report a Bug</span><b>›</b></button>
+        <button class="settings-row" type="button" id="bugStatusBtn"><span>📌 Bug Report Status</span><small>Track</small></button>
+        <button class="settings-row" type="button" data-section-link="learningHeatmap"><span>🔥 Learning Heatmap</span><b>›</b></button>
+        <button class="settings-row" type="button" data-section-link="notifications"><span>📚 Notifications</span><small>New</small></button>
+        <button class="settings-row" type="button" data-section-link="about"><span>ⓘ About Us</span><b>›</b></button>
+        <button class="settings-row" type="button" id="contactBtn"><span>☎ Contact Us</span><b>›</b></button>
+        <button class="settings-row danger-text" type="button" id="settingsLogoutBtn"><span>↩ Logout</span></button>
+      </div>
+
+      <footer class="version">App Version: 09.01.2024<br />Made with love in India</footer>
+    </section>
+
+    <!-- =========================================================
+         LEARNING HEATMAP
+    ========================================================== -->
+    <section id="learningHeatmap" class="section">
+      <button class="back-btn" type="button" data-section-link="settings">← Back to Settings</button>
+      <div class="heatmap-hero">
+        <div>
+          <small>Weekly Online Activity</small>
+          <h2>Learning Heatmap</h2>
+          <p>Login daily and stay active to maintain your learning streak.</p>
+        </div>
+        <div class="streak-card"><span>🔥</span><strong id="heatmapStreak">0</strong><small>Day Streak</small></div>
+      </div>
+      <div class="panel">
+        <div class="split-head">
+          <div><h3>This Week</h3><p id="heatmapStatus">Checking activity...</p></div>
+          <button class="small-btn" type="button" id="refreshHeatmap">↻</button>
+        </div>
+        <div id="weekGrid" class="week-grid"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CONTACT / REQUEST STATUS
+    ========================================================== -->
+    <section id="contact" class="section">
+      <button class="back-btn" type="button" data-section-link="settings">← Back to Settings</button>
+      <div class="panel">
+        <h2>Request a Call or Email Reply</h2>
+        <form id="contactForm" class="form-stack">
+          <label><span>Full Name</span><input id="contactName" type="text" required /></label>
+          <label><span>Mobile Number</span><input id="contactPhone" type="tel" required /></label>
+          <label><span>Email Address</span><input id="contactEmail" type="email" required /></label>
+          <label><span>Reason</span><select id="contactReason"><option>General Support</option><option>Login Issue</option><option>Course Access</option><option>Payment Query</option></select></label>
+          <label><span>Describe Your Problem</span><textarea id="contactProblem" required></textarea></label>
+          <button class="primary-btn" type="submit">Submit Request</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="requestStatus" class="section">
+      <button class="back-btn" type="button" data-section-link="settings">← Back to Settings</button>
+      <div class="panel">
+        <h2>Request Status</h2>
+        <p>Local bug/contact requests submitted from this app.</p>
+        <div id="requestStatusList" class="card-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================
+       BOTTOM NAVIGATION
+  ========================================================== -->
+  <nav class="bottom-nav" aria-label="Primary navigation">
+    <button class="nav-btn active" type="button" data-section-link="home"><span>🏠</span><b>Home</b></button>
+    <button class="nav-btn" type="button" data-section-link="student"><span>🎓</span><b>Student</b></button>
+    <button class="nav-btn" type="button" data-section-link="batches"><span>📚</span><b>Batches</b></button>
+    <button class="nav-btn" type="button" data-section-link="community"><span>💬</span><b>Community</b></button>
+    <button class="nav-btn" type="button" data-section-link="settings"><span>⚙️</span><b>Settings</b></button>
+  </nav>
+
+  <!-- =========================================================
+       MODALS / TOAST
+  ========================================================== -->
+  <dialog id="nameModal" class="modal">
+    <form method="dialog" id="nameForm" class="modal-card">
+      <h3>Edit Name</h3>
+      <label><span>Full Name</span><input id="nameInput" type="text" maxlength="90" /></label>
+      <div class="modal-actions">
+        <button class="secondary-btn" value="cancel">Cancel</button>
+        <button class="primary-btn" value="save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="genericModal" class="modal">
+    <div class="modal-card">
+      <h3 id="genericTitle">Message</h3>
+      <p id="genericText"></p>
+      <button class="primary-btn" type="button" id="genericClose">Okay</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="academe-app.js"></script>
+</body>
+</html>
